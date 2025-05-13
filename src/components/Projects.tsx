@@ -57,7 +57,7 @@ const Projects = () => {
       title: 'Iris Prediction System',
       description: 'A machine learning model to predict iris species based on flower measurements.',
       image: projectImage3,
-      tags: ['React', 'TypeScript', 'Firebase'],
+      tags: ['Flask', 'Scikit-learn', 'Pandas', 'Numpy', 'HTML5', 'CSS3', 'Javascript'],
       category: ['AI & ML', 'backend'],
       github: 'https://github.com/ArizalMuluk/DT-model-testing',
       demo: 'https://example.com'
