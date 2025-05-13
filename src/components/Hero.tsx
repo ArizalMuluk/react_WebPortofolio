@@ -10,21 +10,21 @@ const Hero = () => {
     >
       {/* Background circles - decorative elements */}
       <motion.div 
-        className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-primary-500/10 filter blur-3xl"
+        className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-primary-500/10 dark:bg-primary-500/10 filter blur-3xl"
         animate={{ scale: [1, 1.2, 1] }}
         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
       />
       <motion.div 
-        className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-secondary-500/10 filter blur-3xl"
+        className="absolute bottom-1/4 right-1/4 w-96 h-96 rounded-full bg-secondary-500/10 dark:bg-secondary-500/10 filter blur-3xl"
         animate={{ scale: [1, 1.1, 1] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
       />
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="flex flex-col items-center justify-center text-center pb-24">
+        <div className="flex flex-col items-center justify-center text-center pt-24 md:pt-28 lg:pt-32 pb-24">
           {/* Small intro text */}
           <motion.p 
-            className="text-lg text-primary-400 mb-4 font-medium"
+            className="text-base md:text-lg text-primary-600 dark:text-primary-400 mb-3 md:mb-4 font-medium"
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
@@ -34,7 +34,7 @@ const Hero = () => {
           
           {/* Name */}
           <motion.h1 
-            className="text-5xl md:text-6xl lg:text-7xl font-bold mb-4 text-gradient"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-3 md:mb-4 text-gradient" // Assumes text-gradient works
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
@@ -44,7 +44,7 @@ const Hero = () => {
           
           {/* Typing effect */}
           <motion.div 
-            className="text-2xl md:text-3xl mb-6 text-gray-300 h-16"
+            className="text-xl sm:text-2xl md:text-3xl mb-5 md:mb-6 text-gray-700 dark:text-gray-300 h-14 md:h-16"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
@@ -68,7 +68,7 @@ const Hero = () => {
           
           {/* Short description */}
           <motion.p 
-            className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto"
+            className="text-base md:text-lg text-gray-600 dark:text-gray-300 mb-6 md:mb-8 max-w-xl md:max-w-2xl mx-auto"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.7, delay: 0.6 }}
@@ -85,13 +85,13 @@ const Hero = () => {
           >
             <a 
               href="#projects" 
-              className="px-8 py-3 bg-primary-500 text-white rounded-md hover:bg-primary-600 transition-colors font-medium"
+              className="btn-primary" // Use the global class
             >
               View My Work
             </a>
             <a 
               href="#contact" 
-              className="px-8 py-3 border border-primary-500 text-primary-400 rounded-md hover:bg-primary-500/10 transition-colors font-medium"
+              className="px-8 py-3 border border-primary-500 text-primary-600 dark:text-primary-400 rounded-md hover:bg-primary-500/10 transition-colors font-medium"
             >
               Contact Me
             </a>
@@ -108,7 +108,7 @@ const Hero = () => {
               href="https://github.com/ArizalMuluk" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-primary-400 transition-colors"
+              className="text-gray-500 dark:text-gray-400 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
               whileHover={{ scale: 1.2, rotate: 5 }}
               whileTap={{ scale: 0.9 }}
             >
@@ -118,7 +118,7 @@ const Hero = () => {
               href="https://www.linkedin.com/in/arizalfirdausbaguspratama/" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-primary-400 transition-colors"
+              className="text-gray-500 dark:text-gray-400 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
               whileHover={{ scale: 1.2, rotate: -5 }}
               whileTap={{ scale: 0.9 }}
             >
@@ -128,7 +128,7 @@ const Hero = () => {
               href="https://www.facebook.com/RijalGemink/" // Ganti dengan URL profil Facebook Anda
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-gray-400 hover:text-primary-400 transition-colors"
+              className="text-gray-500 dark:text-gray-400 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
               whileHover={{ scale: 1.2, rotate: 5 }}
               whileTap={{ scale: 0.9 }}
             >
@@ -144,12 +144,12 @@ const Hero = () => {
           animate={{ opacity: 1 }}
           transition={{ duration: 0.5, delay: 1.2 }}
         >
-          <span className="text-gray-400 text-sm mb-2">Scroll Down</span>
+          <span className="text-gray-500 dark:text-gray-400 text-sm mb-2">Scroll Down</span>
           <motion.div
             animate={{ y: [0, 10, 0] }}
             transition={{ repeat: Infinity, duration: 1.5 }}
           >
-            <ArrowDown size={20} className="text-primary-400" />
+            <ArrowDown size={20} className="text-primary-500 dark:text-primary-400" />
           </motion.div>
         </motion.div>
       </div>

@@ -8,18 +8,35 @@
   --primary: #0ea5e9;
   --secondary: #8b5cf6;
   --accent: #f59e0b;
-  --dark: #111827;
+  --dark-bg: #000000; /* Hitam murni */
+  --dark-card: #0D0D0D; /* Abu-abu sangat gelap, hampir hitam, untuk sedikit kontras kartu */
+  --dark-border: #1A1A1A; /* Abu-abu gelap untuk border */
+  --light-bg: #f9fafb; /* gray-50 */
+  --light-card: #ffffff; /* white */
+  --light-border: #e5e7eb; /* gray-200 */
+  --light-text: #1f2937; /* gray-800 */
+  --dark-text: #f3f4f6; /* gray-100 */
 }
 
 html {
   scroll-behavior: smooth;
   scrollbar-width: thin;
-  scrollbar-color: var(--primary) var(--dark);
+  scrollbar-color: var(--primary) var(--dark-bg); /* For Firefox */
 }
 
+
 body {
-  @apply bg-dark-900 text-white font-sans;
+  @apply font-sans; /* Gaya dasar yang tidak berubah dengan tema */
   overflow-x: hidden;
+
+  /* Default ke tema terang */
+  background-color: var(--light-bg);
+  color: var(--light-text);
+}
+
+.dark body {
+  background-color: var(--dark-bg);
+  color: var(--dark-text);
 }
 
 /* Custom scrollbar */
@@ -28,8 +45,12 @@ body {
   height: 8px;
 }
 
-::-webkit-scrollbar-track {
-  @apply bg-dark-800;
+.dark ::-webkit-scrollbar-track {
+  background-color: var(--dark-card); /* gray-800 */
+}
+
+::-webkit-scrollbar-track { /* Light theme */
+  background-color: var(--light-border); /* gray-200 */
 }
 
 ::-webkit-scrollbar-thumb {
@@ -59,7 +80,7 @@ body {
   }
   
   .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-400 via-secondary-400 to-accent-400;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-sky-500 via-violet-500 to-amber-500;
   }
   
   .container-custom {
@@ -79,25 +100,52 @@ body {
   }
   
   .btn-outline {
-    @apply btn border-2 border-primary-500 text-primary-400 hover:bg-primary-500/10 focus:ring-primary-500;
+    @apply btn border-2 border-primary-500 focus:ring-primary-500;
+    /* Light theme */
+    @apply text-primary-600 hover:bg-primary-500/10;
+    /* Dark theme */
+    @apply dark:text-primary-400 dark:hover:bg-primary-500/10;
   }
+
   
   .btn-accent {
     @apply btn bg-gradient-to-r from-accent-500 to-accent-600 text-white focus:ring-accent-500;
   }
 
   .card {
-    @apply bg-dark-800/80 backdrop-blur-sm rounded-xl p-6 border border-dark-700 hover:border-primary-500/50 transition-all duration-300;
+    @apply rounded-xl p-6 backdrop-blur-sm transition-all duration-300 shadow-lg border hover:border-primary-500/50;
+    /* Light theme */
+    background-color: rgba(var(--light-card-rgb), 0.8); /* Menggunakan --light-card-rgb dengan alpha */
+    border-color: var(--light-border);
   }
+  .dark .card {
+    background-color: rgba(var(--dark-card-rgb), 0.8); /* Menggunakan --dark-card-rgb dengan alpha */
+    border-color: var(--dark-border); /* Menambahkan border-color untuk dark theme */
+  }
+
   
   .input-field {
-    @apply bg-dark-700 border-2 border-dark-600 rounded-lg px-4 py-3 w-full text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300;
+    @apply rounded-lg px-4 py-3 w-full focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300;
+    /* Light theme */
+    @apply bg-gray-100 border-2 border-gray-300 placeholder-gray-500;
+    color: var(--light-text);
+    /* Dark theme */
+    @apply dark:border-2 dark:border-gray-600 dark:placeholder-gray-400;
+  }
+  .dark .input-field {
+    color: var(--dark-text);
+    background-color: var(--dark-border); /* Menggunakan variabel CSS untuk background */
   }
 }
 
 /* Animation and loading styles */
 .loading-screen {
-  @apply fixed inset-0 z-50 flex items-center justify-center bg-dark-900;
+  @apply fixed inset-0 z-50 flex items-center justify-center;
+  /* Default to light theme background */
+  background-color: var(--light-bg);
+}
+.dark .loading-screen {
+  background-color: var(--dark-bg);
 }
 
 .loader {
@@ -159,13 +207,19 @@ body {
 
 /* Background animation */
 .bg-animation {
-  @apply fixed inset-0 z-[-1] opacity-40;
+  @apply fixed inset-0 z-[-1] filter blur-[30px]; /* Mengurangi blur dari 60px menjadi 40px */
+  /* Light theme version - slightly less opacity or different colors if needed */
+  @apply opacity-20 dark:opacity-40;
   background-image: 
-    radial-gradient(circle at 25% 25%, rgba(14, 165, 233, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 75% 75%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
-    radial-gradient(circle at 50% 50%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
-  filter: blur(60px);
-  animation: bg-shift 15s ease infinite alternate;
+    radial-gradient(circle at 25% 25%, var(--primary) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, var(--secondary) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, var(--accent) 0%, transparent 50%);
+  /* filter: blur(60px); // Ini sudah di-apply oleh Tailwind di atas */
+  animation-name: bg-shift;
+  animation-duration: 15s;
+  animation-timing-function: ease;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 
 @keyframes bg-shift {
@@ -179,7 +233,10 @@ body {
 
 /* Typing cursor animation */
 .typed-cursor {
-  @apply text-primary-400;
+  /* Light theme */
+  @apply text-primary-500;
+  /* Dark theme */
+  @apply dark:text-primary-400;
   animation: blink 0.7s infinite;
 }
 
@@ -192,13 +249,17 @@ body {
 .custom-cursor {
   @apply fixed w-6 h-6 rounded-full pointer-events-none z-50 mix-blend-difference;
   transform: translate(-50%, -50%);
-  background: rgba(255, 255, 255, 0.5);
+  background: white; /* Base for mix-blend-difference */
   transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
 }
 
 .custom-cursor.hover {
-  @apply w-12 h-12 bg-primary-400;
-  mix-blend-mode: exclusion;
+  @apply w-12 h-12;
+  /* Light theme hover */
+  background: var(--primary); /* Or a lighter shade if primary is too dark for light bg */
+  /* Dark theme hover */
+  /* .dark & { background: var(--primary); } // This might be okay */
+  mix-blend-mode: normal; /* Changed from exclusion to normal for more predictable color */
 }
 
 /* Project image hover effect */

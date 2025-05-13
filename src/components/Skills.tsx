@@ -88,7 +88,7 @@ const Skills: React.FC = () => {
   };
 
   return (
-    <section id="skills" className="section-padding bg-dark-800/50">
+    <section id="skills" className="section-padding bg-gray-50 dark:bg-dark-800/50">
       <div className="container-custom" ref={ref}>
         <motion.div 
           className="mb-16 text-center"
@@ -96,7 +96,7 @@ const Skills: React.FC = () => {
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
           transition={{ duration: 0.5 }}
         >
-          <p className="text-primary-400 font-medium mb-2">What I Can Do</p>
+          <p className="text-primary-600 dark:text-primary-400 font-medium mb-2">What I Can Do</p>
           <h2 className="heading-lg mb-4 text-gradient">My Skills</h2>
           <div className="w-16 h-1 bg-gradient-to-r from-primary-500 to-secondary-500 mx-auto"></div>
         </motion.div>
@@ -127,11 +127,11 @@ const Skills: React.FC = () => {
                     <div className="flex justify-between items-center mb-2">
                       <div className="flex items-center">
                         <span className="mr-2 text-xl">{skill.icon}</span>
-                        <span className="font-medium text-white">{skill.name}</span>
+                        <span className="font-medium text-gray-800 dark:text-white">{skill.name}</span>
                       </div>
-                      <span className="text-gray-400 text-sm">{skill.level}%</span>
+                      <span className="text-gray-600 dark:text-gray-400 text-sm">{skill.level}%</span>
                     </div>
-                    <div className="h-3 bg-dark-700 rounded-full overflow-hidden">
+                    <div className="h-3 bg-gray-200 dark:bg-dark-700 rounded-full overflow-hidden">
                       <motion.div
                         className="h-full bg-gradient-to-r from-primary-500 to-secondary-600 rounded-full"
                         custom={skill.level}
