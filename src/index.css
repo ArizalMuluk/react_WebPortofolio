@@ -1,0 +1,211 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #0ea5e9;
+  --secondary: #8b5cf6;
+  --accent: #f59e0b;
+  --dark: #111827;
+}
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) var(--dark);
+}
+
+body {
+  @apply bg-dark-900 text-white font-sans;
+  overflow-x: hidden;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-dark-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gradient-to-b from-primary-500 to-secondary-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gradient-to-b from-primary-400 to-secondary-500;
+}
+
+/* Reusable classes */
+@layer components {
+  .heading-xl {
+    @apply font-heading text-4xl md:text-5xl lg:text-6xl font-bold;
+  }
+  
+  .heading-lg {
+    @apply font-heading text-3xl md:text-4xl font-bold;
+  }
+  
+  .heading-md {
+    @apply font-heading text-2xl md:text-3xl font-semibold;
+  }
+  
+  .heading-sm {
+    @apply font-heading text-xl md:text-2xl font-semibold;
+  }
+  
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-400 via-secondary-400 to-accent-400;
+  }
+  
+  .container-custom {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8 max-w-6xl;
+  }
+  
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+
+  .btn {
+    @apply px-6 py-3 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-dark-900 text-center inline-block;
+  }
+  
+  .btn-primary {
+    @apply btn bg-gradient-to-r from-primary-500 to-secondary-600 text-white focus:ring-primary-500;
+  }
+  
+  .btn-outline {
+    @apply btn border-2 border-primary-500 text-primary-400 hover:bg-primary-500/10 focus:ring-primary-500;
+  }
+  
+  .btn-accent {
+    @apply btn bg-gradient-to-r from-accent-500 to-accent-600 text-white focus:ring-accent-500;
+  }
+
+  .card {
+    @apply bg-dark-800/80 backdrop-blur-sm rounded-xl p-6 border border-dark-700 hover:border-primary-500/50 transition-all duration-300;
+  }
+  
+  .input-field {
+    @apply bg-dark-700 border-2 border-dark-600 rounded-lg px-4 py-3 w-full text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all duration-300;
+  }
+}
+
+/* Animation and loading styles */
+.loading-screen {
+  @apply fixed inset-0 z-50 flex items-center justify-center bg-dark-900;
+}
+
+.loader {
+  @apply relative w-16 h-16;
+}
+
+.loader:before, .loader:after {
+  content: '';
+  @apply absolute inset-0 rounded-full border-4 border-transparent;
+  animation: pulse-ring 1.25s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+}
+
+.loader:before {
+  @apply border-t-primary-500 border-b-secondary-500;
+  animation-delay: 0s;
+}
+
+.loader:after {
+  @apply border-l-secondary-500 border-r-accent-500;
+  animation-delay: 0.5s;
+}
+
+@keyframes pulse-ring {
+  0% {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+
+/* Page transition animation */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 400ms, transform 400ms;
+}
+
+.page-transition-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.page-transition-exit-active {
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: opacity 400ms, transform 400ms;
+}
+
+/* Background animation */
+.bg-animation {
+  @apply fixed inset-0 z-[-1] opacity-40;
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(14, 165, 233, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
+  filter: blur(60px);
+  animation: bg-shift 15s ease infinite alternate;
+}
+
+@keyframes bg-shift {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}
+
+/* Typing cursor animation */
+.typed-cursor {
+  @apply text-primary-400;
+  animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Custom cursor */
+.custom-cursor {
+  @apply fixed w-6 h-6 rounded-full pointer-events-none z-50 mix-blend-difference;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.5);
+  transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+}
+
+.custom-cursor.hover {
+  @apply w-12 h-12 bg-primary-400;
+  mix-blend-mode: exclusion;
+}
+
+/* Project image hover effect */
+.project-card img {
+  @apply transition-all duration-500;
+}
+
+.project-card:hover img {
+  @apply scale-105 brightness-110;
+}
