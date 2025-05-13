@@ -16,6 +16,10 @@
   --light-border: #e5e7eb; /* gray-200 */
   --light-text: #1f2937; /* gray-800 */
   --dark-text: #f3f4f6; /* gray-100 */
+  /* Warna muted untuk animasi kabut di tema gelap */
+  --dark-primary-muted: #075985; /* sky-700, lebih gelap dari --primary */
+  --dark-secondary-muted: #5b21b6; /* violet-700, lebih gelap dari --secondary */
+  --dark-accent-muted: #b45309; /* amber-700, lebih gelap dari --accent */
 }
 
 html {
@@ -209,7 +213,7 @@ body {
 .bg-animation {
   @apply fixed inset-0 z-[-1] filter blur-[30px]; /* Mengurangi blur dari 60px menjadi 40px */
   /* Light theme version - slightly less opacity or different colors if needed */
-  @apply opacity-20 dark:opacity-40;
+  @apply opacity-20; /* Opacity default untuk terang, bisa juga disesuaikan untuk gelap di bawah */
   background-image: 
     radial-gradient(circle at 25% 25%, var(--primary) 0%, transparent 50%),
     radial-gradient(circle at 75% 75%, var(--secondary) 0%, transparent 50%),
@@ -220,6 +224,15 @@ body {
   animation-timing-function: ease;
   animation-iteration-count: infinite;
   animation-direction: alternate;
+}
+
+.dark .bg-animation {
+  /* Override background-image untuk tema gelap dengan warna yang lebih muted */
+  background-image: 
+    radial-gradient(circle at 25% 25%, var(--dark-primary-muted) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, var(--dark-secondary-muted) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, var(--dark-accent-muted) 0%, transparent 50%);
+  @apply opacity-20; /* Anda bisa menyesuaikan opacity khusus untuk tema gelap di sini jika perlu, misal opacity-15 */
 }
 
 @keyframes bg-shift {
