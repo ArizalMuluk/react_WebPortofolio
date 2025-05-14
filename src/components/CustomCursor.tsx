@@ -5,6 +5,7 @@ const CustomCursor: React.FC = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [isClicking, setIsClicking] = useState(false);
 
   useEffect(() => {
     const updatePosition = (e: MouseEvent) => {
@@ -29,6 +30,16 @@ const CustomCursor: React.FC = () => {
       setIsHovering(isInteractive);
     };
     
+    // Track mouse down events for click state
+    const handleMouseDown = () => {
+      setIsClicking(true);
+    };
+    
+    // Track mouse up events
+    const handleMouseUp = () => {
+      setIsClicking(false);
+    };
+    
     // Hide cursor when it leaves the window
     const handleMouseLeave = () => {
       setIsVisible(false);
@@ -41,12 +52,16 @@ const CustomCursor: React.FC = () => {
 
     window.addEventListener('mousemove', updatePosition);
     window.addEventListener('mousemove', updateHoverState);
+    window.addEventListener('mousedown', handleMouseDown);
+    window.addEventListener('mouseup', handleMouseUp);
     document.addEventListener('mouseleave', handleMouseLeave);
     document.addEventListener('mouseenter', handleMouseEnter);
     
     return () => {
       window.removeEventListener('mousemove', updatePosition);
       window.removeEventListener('mousemove', updateHoverState);
+      window.removeEventListener('mousedown', handleMouseDown);
+      window.removeEventListener('mouseup', handleMouseUp);
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mouseenter', handleMouseEnter);
     };
@@ -63,12 +78,12 @@ const CustomCursor: React.FC = () => {
 
   return (
     <motion.div
-      className={`custom-cursor ${isHovering ? 'hover' : ''}`}
+      className={`custom-cursor ${isHovering ? 'hover' : ''} ${isClicking ? 'clicking' : ''}`}
       animate={{
         x: position.x,
         y: position.y,
         opacity: isVisible ? 1 : 0,
-        scale: isHovering ? 1.2 : 1
+        scale: isClicking ? 0.8 : isHovering ? 1.2 : 1
       }}
       transition={{
         type: "spring",
@@ -76,6 +91,9 @@ const CustomCursor: React.FC = () => {
         stiffness: 800,
         damping: 30,
         opacity: { duration: 0.2 }
+      }}
+      style={{
+        mixBlendMode: isClicking ? 'normal' : undefined
       }}
     />
   );

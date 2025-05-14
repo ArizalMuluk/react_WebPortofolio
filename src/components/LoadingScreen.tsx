@@ -59,7 +59,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ minDisplayTime = 2000 }) 
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2, duration: 0.5 }}
             >
-              Loading Portfolio
+              Loading Bosss
             </motion.div>
             
             {/* Animated dots */}

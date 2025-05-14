@@ -68,7 +68,7 @@ const About = () => {
   };
 
   return (
-    <section id="about" className="section-padding bg-gray-50 dark:bg-dark-800/50 relative">
+    <section id="about" className="section-padding bg-white/70 dark:bg-neutral-900/70 relative">
       <div className="container mx-auto px-4" ref={ref}>
         <motion.div
           className="mb-16 text-center"

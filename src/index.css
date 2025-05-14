@@ -232,6 +232,7 @@ body {
     radial-gradient(circle at 25% 25%, var(--dark-primary-muted) 0%, transparent 50%),
     radial-gradient(circle at 75% 75%, var(--dark-secondary-muted) 0%, transparent 50%),
     radial-gradient(circle at 50% 50%, var(--dark-accent-muted) 0%, transparent 50%);
+  animation-duration: 15s; /* Memastikan durasi animasi sama dengan tema terang */
   @apply opacity-20; /* Anda bisa menyesuaikan opacity khusus untuk tema gelap di sini jika perlu, misal opacity-15 */
 }
 
@@ -273,6 +274,23 @@ body {
   /* Dark theme hover */
   /* .dark & { background: var(--primary); } // This might be okay */
   mix-blend-mode: normal; /* Changed from exclusion to normal for more predictable color */
+}
+
+/* Custom cursor clicking state */
+.custom-cursor.clicking {
+  @apply w-8 h-8; /* Slightly smaller than hover state but larger than default */
+  background: rgba(255, 255, 255, 0.9); /* Slightly more opaque white */
+  mix-blend-mode: normal; /* Override the mix-blend-difference to prevent transparency */
+  border: 2px solid var(--primary); /* Add a border with primary color */
+  box-shadow: 0 0 10px rgba(14, 165, 233, 0.5); /* Light glow effect using primary color */
+  transition: all 0.1s ease; /* Faster transition for click feedback */
+}
+
+/* Dark theme specific adjustments for clicking state if needed */
+.dark .custom-cursor.clicking {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: var(--primary);
+  box-shadow: 0 0 12px rgba(14, 165, 233, 0.6); /* Slightly stronger glow in dark mode */
 }
 
 /* Project image hover effect */

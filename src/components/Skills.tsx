@@ -88,7 +88,7 @@ const Skills: React.FC = () => {
   };
 
   return (
-    <section id="skills" className="section-padding bg-gray-50 dark:bg-dark-800/50">
+    <section id="skills" className="section-padding bg-white/70 dark:bg-neutral-900/70">
       <div className="container-custom" ref={ref}>
         <motion.div 
           className="mb-16 text-center"
