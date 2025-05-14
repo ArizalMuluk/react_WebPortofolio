@@ -4,21 +4,19 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
+import Certificates from './components/Certificates';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import LoadingScreen from './components/LoadingScreen';
 import BackgroundAnimation from './components/BackgroundAnimation';
+import AbstractAnimation from './components/AbstractAnimation';
 import CustomCursor from './components/CustomCursor';
 
 function App() {
-  // Update page title
   useEffect(() => {
     document.title = "Arzlfrds | AI & ML Engineer";
-    
-    // Add dark mode class to html element by default
     document.documentElement.classList.add('dark');
     
-    // Smooth scrolling for anchor links
     const handleAnchorClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       const anchor = target.closest('a');
@@ -33,7 +31,6 @@ function App() {
             behavior: 'smooth'
           });
           
-          // Update URL without page jump
           history.pushState(null, '', anchor.hash);
         }
       }
@@ -48,28 +45,21 @@ function App() {
 
   return (
     <div className="relative">
-      {/* Custom cursor for desktop */}
       <CustomCursor />
-      
-      {/* Loading screen */}
       <LoadingScreen />
-      
-      {/* Background effects */}
       <BackgroundAnimation />
-      
-      {/* Navigation */}
+      <AbstractAnimation />
       <Navbar />
       
-      {/* Main content */}
       <main>
         <Hero />
         <About />
         <Projects />
         <Skills />
+        <Certificates />
         <Contact />
       </main>
       
-      {/* Footer */}
       <Footer />
     </div>
   );
