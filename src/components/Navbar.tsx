@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Sun, Moon, Home, User, Briefcase, Code, Mail } from 'lucide-react';
+import { Menu, X, Sun, Moon, Home, User, Briefcase, Code, Mail, Award } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface NavItem {
@@ -13,6 +13,7 @@ const navItems: NavItem[] = [
   { name: 'About', href: '#about', icon: <User size={18} /> },
   { name: 'Projects', href: '#projects', icon: <Briefcase size={18} /> },
   { name: 'Skills', href: '#skills', icon: <Code size={18} /> },
+  { name: 'Certificates', href: '#certificates', icon: <Award size={18} /> },
   { name: 'Contact', href: '#contact', icon: <Mail size={18} /> },
 ];
 
