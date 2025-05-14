@@ -261,34 +261,28 @@ body {
 
 /* Custom cursor */
 .custom-cursor {
-  @apply fixed w-6 h-6 rounded-full pointer-events-none z-50 mix-blend-difference;
-  transform: translate(-50%, -50%);
-  background: white; /* Base for mix-blend-difference */
-  transition: transform 0.1s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease;
+  @apply fixed w-6 h-6 rounded-full pointer-events-none z-50;
+  /* Base transform and other styles are now handled by the inline styles */
 }
 
 .custom-cursor.hover {
   @apply w-12 h-12;
-  /* Light theme hover */
-  background: var(--primary); /* Or a lighter shade if primary is too dark for light bg */
-  /* Dark theme hover */
-  /* .dark & { background: var(--primary); } // This might be okay */
-  mix-blend-mode: normal; /* Changed from exclusion to normal for more predictable color */
+  /* No background color here, handled by the component's inline styles */
+  /* No mix-blend-mode here, handled by the component's inline styles */
 }
 
 /* Custom cursor clicking state */
 .custom-cursor.clicking {
   @apply w-8 h-8; /* Slightly smaller than hover state but larger than default */
-  background: rgba(255, 255, 255, 0.9); /* Slightly more opaque white */
-  mix-blend-mode: normal; /* Override the mix-blend-difference to prevent transparency */
+  /* No background color here, handled by the component's inline styles */
+  /* No mix-blend-mode here, handled by the component's inline styles */
   border: 2px solid var(--primary); /* Add a border with primary color */
   box-shadow: 0 0 10px rgba(14, 165, 233, 0.5); /* Light glow effect using primary color */
   transition: all 0.1s ease; /* Faster transition for click feedback */
 }
 
-/* Dark theme specific adjustments for clicking state if needed */
+/* Dark theme specific adjustments for clicking state */
 .dark .custom-cursor.clicking {
-  background: rgba(255, 255, 255, 0.8);
   border-color: var(--primary);
   box-shadow: 0 0 12px rgba(14, 165, 233, 0.6); /* Slightly stronger glow in dark mode */
 }

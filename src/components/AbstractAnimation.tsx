@@ -12,6 +12,8 @@ const AbstractAnimation = () => {
 
     let animationFrameId: number;
     let time = 0;
+    // Use consistent animation speed regardless of theme
+    const animationSpeed = 0.01;
 
     const resize = () => {
       canvas.width = window.innerWidth;
@@ -22,6 +24,7 @@ const AbstractAnimation = () => {
     resize();
 
     const draw = () => {
+      // Use a consistent fade effect that works in both themes
       ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -44,12 +47,14 @@ const AbstractAnimation = () => {
           ctx.lineTo(nextX, nextY);
         }
 
+        // Use consistent hue rotation speed
         ctx.strokeStyle = `hsl(${time * 50 + i * 120}, 70%, 60%)`;
         ctx.lineWidth = 2;
         ctx.stroke();
       }
 
-      time += 0.01;
+      // Apply consistent animation speed
+      time += animationSpeed;
       animationFrameId = requestAnimationFrame(draw);
     };
 

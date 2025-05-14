@@ -6,8 +6,24 @@ const CustomCursor: React.FC = () => {
   const [isHovering, setIsHovering] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
 
   useEffect(() => {
+    // Check if dark theme is active
+    const checkTheme = () => {
+      setIsDarkTheme(document.documentElement.classList.contains('dark'));
+    };
+
+    // Set initial theme state
+    checkTheme();
+
+    // Setup a mutation observer to detect theme changes
+    const observer = new MutationObserver(checkTheme);
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+
     const updatePosition = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
       
@@ -25,7 +41,9 @@ const CustomCursor: React.FC = () => {
         target.tagName.toLowerCase() === 'a' ||
         target.tagName.toLowerCase() === 'button' ||
         target.closest('a') !== null ||
-        target.closest('button') !== null;
+        target.closest('button') !== null ||
+        target.classList.contains('interactive') ||
+        (target.closest('.interactive') !== null);
       
       setIsHovering(isInteractive);
     };
@@ -64,6 +82,7 @@ const CustomCursor: React.FC = () => {
       window.removeEventListener('mouseup', handleMouseUp);
       document.removeEventListener('mouseleave', handleMouseLeave);
       document.removeEventListener('mouseenter', handleMouseEnter);
+      observer.disconnect();
     };
   }, [isVisible]);
 
@@ -75,6 +94,35 @@ const CustomCursor: React.FC = () => {
   }, []);
 
   if (isTouchDevice) return null;
+
+  // Determine cursor styles based on state and theme
+  const getCursorStyle = () => {
+    // Base style
+    const baseStyle: React.CSSProperties = {
+      transform: 'translate(-50%, -50%)',
+      transition: 'transform 0.1s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease'
+    };
+
+    // Always use normal blend mode on hover or click to prevent transparency issues
+    if (isHovering || isClicking) {
+      return {
+        ...baseStyle,
+        mixBlendMode: 'normal' as const,
+        background: isClicking 
+          ? 'rgba(255, 255, 255, 0.9)' 
+          : isDarkTheme 
+            ? 'var(--primary)' 
+            : 'var(--primary)'
+      };
+    }
+    
+    // Default state uses mix-blend-difference for cool effect
+    return {
+      ...baseStyle,
+      mixBlendMode: 'difference' as const,
+      background: 'white'
+    };
+  };
 
   return (
     <motion.div
@@ -92,9 +140,7 @@ const CustomCursor: React.FC = () => {
         damping: 30,
         opacity: { duration: 0.2 }
       }}
-      style={{
-        mixBlendMode: isClicking ? 'normal' : undefined
-      }}
+      style={getCursorStyle()}
     />
   );
 };
