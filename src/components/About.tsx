@@ -1,12 +1,11 @@
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { Download, Award, Calendar, Coffee, X } from "lucide-react";
 import myProfileImage from "../assets/images/profile.png";
 
 const About = () => {
   const [showPopup, setShowPopup] = useState(false);
-  const [isFlipped, setIsFlipped] = useState(false);
   
   const { ref, inView } = useInView({
     threshold: 0.2,
@@ -32,11 +31,6 @@ const About = () => {
         duration: 0.5,
       },
     }),
-  };
-
-  const cardVariants = {
-    initial: { rotateY: 0 },
-    flipped: { rotateY: 180 },
   };
 
   const popupVariants = {
@@ -67,13 +61,10 @@ const About = () => {
   const handleCVDownload = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setShowPopup(true);
+    // Auto-close popup after 3 seconds
     setTimeout(() => {
       setShowPopup(false);
     }, 3000);
-  };
-
-  const handleImageClick = () => {
-    setIsFlipped(!isFlipped);
   };
 
   return (
@@ -91,59 +82,27 @@ const About = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* About image with card flip animation */}
+          {/* About image */}
           <motion.div
-            className="relative perspective-1000"
+            className="relative"
             initial="hidden"
             animate={inView ? "visible" : "hidden"}
             variants={fadeInVariants}
           >
-            <motion.div
-              className="relative w-full max-w-md mx-auto cursor-pointer"
-              animate={isFlipped ? "flipped" : "initial"}
-              variants={cardVariants}
-              transition={{ duration: 0.6, type: "spring" }}
-              onClick={handleImageClick}
-              style={{ transformStyle: "preserve-3d" }}
-            >
-              {/* Front of card */}
-              <div className="absolute w-full backface-hidden">
-                <div className="relative">
-                  {/* Decorative elements */}
-                  <motion.div 
-                    className="absolute top-0 left-0 w-full h-full bg-gradient-to-tr from-primary-500/10 to-secondary-500/10 dark:from-primary-500/20 dark:to-secondary-500/20 rounded-2xl"
-                    animate={{ rotate: [-6, 6, -6] }}
-                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                  />
-                  <motion.div 
-                    className="absolute top-0 left-0 w-full h-full bg-gradient-to-tr from-secondary-500/10 to-accent-500/10 dark:from-secondary-500/20 dark:to-accent-500/20 rounded-2xl"
-                    animate={{ rotate: [3, -3, 3] }}
-                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                  />
+            <div className="relative w-full max-w-md mx-auto">
+              {/* Decorative elements */}
+              <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-tr from-primary-500/10 to-secondary-500/10 dark:from-primary-500/20 dark:to-secondary-500/20 rounded-2xl transform -rotate-6"></div>
+              <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-tr from-secondary-500/10 to-accent-500/10 dark:from-secondary-500/20 dark:to-accent-500/20 rounded-2xl transform rotate-3"></div>
 
-                  {/* Main image */}
-                  <div className="relative rounded-2xl overflow-hidden border-4 border-gray-200 dark:border-dark-700">
-                    <img
-                      src={myProfileImage}
-                      alt="Arizal Firdaus - Profile"
-                      className="w-full h-auto object-cover transform transition-transform duration-500 hover:scale-110"
-                    />
-                  </div>
-                </div>
+              {/* Main image */}
+              <div className="relative rounded-2xl overflow-hidden border-4 border-gray-200 dark:border-dark-700">
+                <img
+                  src={myProfileImage}
+                  alt="Arizal Firdaus - Profile"
+                  className="w-full h-auto object-cover"
+                />
               </div>
-
-              {/* Back of card */}
-              <div 
-                className="absolute w-full h-full backface-hidden rounded-2xl bg-gradient-to-br from-primary-500 to-secondary-500 p-6 flex items-center justify-center"
-                style={{ transform: "rotateY(180deg)" }}
-              >
-                <div className="text-white text-center">
-                  <h3 className="text-2xl font-bold mb-4">Arizal Firdaus</h3>
-                  <p className="mb-4">AI & ML Engineer</p>
-                  <p className="text-sm opacity-90">Click to flip back</p>
-                </div>
-              </div>
-            </motion.div>
+            </div>
           </motion.div>
 
           {/* About content */}
@@ -153,35 +112,19 @@ const About = () => {
             variants={fadeInVariants}
             className="flex flex-col space-y-6"
           >
-            {/* Stats cards with hover animations */}
+            {/* Stats cards */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
               {stats.map((stat, index) => (
                 <motion.div
                   key={stat.label}
-                  className="bg-gray-100 dark:bg-dark-700 rounded-lg shadow-lg flex flex-col items-center text-center py-4 hover:bg-primary-50 dark:hover:bg-dark-600 transition-all duration-300 transform hover:-translate-y-2"
+                  className="bg-gray-100 dark:bg-dark-700 rounded-lg shadow-lg flex flex-col items-center text-center py-4"
                   custom={index}
                   initial="hidden"
                   animate={inView ? "visible" : "hidden"}
                   variants={statsVariants}
-                  whileHover={{
-                    scale: 1.05,
-                    boxShadow: "0 10px 20px rgba(0,0,0,0.1)",
-                  }}
-                  whileTap={{ scale: 0.95 }}
                 >
-                  <motion.div 
-                    className="text-primary-500 dark:text-primary-400 mb-2"
-                    whileHover={{ rotate: [0, -10, 10, -10, 0] }}
-                    transition={{ duration: 0.5 }}
-                  >
-                    {stat.icon}
-                  </motion.div>
-                  <motion.h3 
-                    className="text-2xl font-bold text-gray-800 dark:text-white mb-1"
-                    whileHover={{ scale: 1.1 }}
-                  >
-                    {stat.count}
-                  </motion.h3>
+                  <div className="text-primary-500 dark:text-primary-400 mb-2">{stat.icon}</div>
+                  <h3 className="text-2xl font-bold text-gray-800 dark:text-white mb-1">{stat.count}</h3>
                   <p className="text-gray-600 dark:text-gray-400 text-sm">{stat.label}</p>
                 </motion.div>
               ))}
@@ -199,7 +142,7 @@ const About = () => {
               {/* CTA Button */}
               <motion.button
                 onClick={handleCVDownload}
-                className="btn-primary px-6 py-3 inline-flex items-center gap-2"
+                className="btn-primary px-6 py-3 inline-flex items-center gap-2" // Use btn-primary and add specifics
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -212,33 +155,31 @@ const About = () => {
       </div>
 
       {/* Notification Popup */}
-      <AnimatePresence>
-        {showPopup && (
-          <motion.div 
-            className="fixed bottom-6 right-6 z-50"
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            variants={popupVariants}
-          >
-            <div className="bg-white dark:bg-dark-700 border border-gray-200 dark:border-primary-500/30 text-gray-800 dark:text-white rounded-lg shadow-lg p-4 flex items-start gap-3 max-w-sm">
-              <div className="p-2 bg-primary-500/10 dark:bg-primary-500/20 rounded-full text-primary-500 dark:text-primary-400 flex-shrink-0">
-                <Download size={20} />
-              </div>
-              <div className="flex-grow">
-                <h4 className="font-medium mb-1">CV Not Available</h4>
-                <p className="text-gray-600 dark:text-gray-300 text-sm">The CV is currently not available for download. Please check back later.</p>
-              </div>
-              <button 
-                onClick={() => setShowPopup(false)}
-                className="text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-white transition-colors flex-shrink-0"
-              >
-                <X size={20} />
-              </button>
+      {showPopup && (
+        <motion.div 
+          className="fixed bottom-6 right-6 z-50"
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          variants={popupVariants}
+        >
+          <div className="bg-white dark:bg-dark-700 border border-gray-200 dark:border-primary-500/30 text-gray-800 dark:text-white rounded-lg shadow-lg p-4 flex items-start gap-3 max-w-sm">
+            <div className="p-2 bg-primary-500/10 dark:bg-primary-500/20 rounded-full text-primary-500 dark:text-primary-400 flex-shrink-0">
+              <Download size={20} />
             </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            <div className="flex-grow">
+              <h4 className="font-medium mb-1">CV Not Available</h4>
+              <p className="text-gray-600 dark:text-gray-300 text-sm">The CV is currently not available for download. Please check back later.</p>
+            </div>
+            <button 
+              onClick={() => setShowPopup(false)}
+              className="text-gray-500 dark:text-gray-400 hover:text-gray-800 dark:hover:text-white transition-colors flex-shrink-0"
+            >
+              <X size={20} />
+            </button>
+          </div>
+        </motion.div>
+      )}
     </section>
   );
 };
