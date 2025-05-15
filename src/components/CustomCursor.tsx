@@ -7,17 +7,15 @@ const CustomCursor: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isClicking, setIsClicking] = useState(false);
   const [isDarkTheme, setIsDarkTheme] = useState(false);
+  const [isOverInteractive, setIsOverInteractive] = useState(false);
 
   useEffect(() => {
-    // Check if dark theme is active
     const checkTheme = () => {
       setIsDarkTheme(document.documentElement.classList.contains('dark'));
     };
 
-    // Set initial theme state
     checkTheme();
 
-    // Setup a mutation observer to detect theme changes
     const observer = new MutationObserver(checkTheme);
     observer.observe(document.documentElement, {
       attributes: true,
@@ -26,47 +24,28 @@ const CustomCursor: React.FC = () => {
 
     const updatePosition = (e: MouseEvent) => {
       setPosition({ x: e.clientX, y: e.clientY });
-      
-      // Only show cursor after first mouse movement
-      if (!isVisible) {
-        setIsVisible(true);
-      }
+      if (!isVisible) setIsVisible(true);
     };
 
     const updateHoverState = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
       
-      // Check if hovering over interactive elements
       const isInteractive = 
         target.tagName.toLowerCase() === 'a' ||
         target.tagName.toLowerCase() === 'button' ||
         target.closest('a') !== null ||
         target.closest('button') !== null ||
         target.classList.contains('interactive') ||
-        (target.closest('.interactive') !== null);
+        target.closest('.interactive') !== null;
       
       setIsHovering(isInteractive);
+      setIsOverInteractive(isInteractive);
     };
     
-    // Track mouse down events for click state
-    const handleMouseDown = () => {
-      setIsClicking(true);
-    };
-    
-    // Track mouse up events
-    const handleMouseUp = () => {
-      setIsClicking(false);
-    };
-    
-    // Hide cursor when it leaves the window
-    const handleMouseLeave = () => {
-      setIsVisible(false);
-    };
-    
-    // Show cursor when it enters the window
-    const handleMouseEnter = () => {
-      setIsVisible(true);
-    };
+    const handleMouseDown = () => setIsClicking(true);
+    const handleMouseUp = () => setIsClicking(false);
+    const handleMouseLeave = () => setIsVisible(false);
+    const handleMouseEnter = () => setIsVisible(true);
 
     window.addEventListener('mousemove', updatePosition);
     window.addEventListener('mousemove', updateHoverState);
@@ -86,7 +65,6 @@ const CustomCursor: React.FC = () => {
     };
   }, [isVisible]);
 
-  // Only render custom cursor on non-touch devices
   const [isTouchDevice, setIsTouchDevice] = useState(false);
   
   useEffect(() => {
@@ -95,30 +73,28 @@ const CustomCursor: React.FC = () => {
 
   if (isTouchDevice) return null;
 
-  // Determine cursor styles based on state and theme
   const getCursorStyle = () => {
-    // Base style
     const baseStyle: React.CSSProperties = {
       transform: 'translate(-50%, -50%)',
-      transition: 'transform 0.1s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease'
+      transition: 'transform 0.1s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease, opacity 0.2s ease'
     };
 
-    // Always use normal blend mode on hover or click to prevent transparency issues
-    if (isHovering || isClicking) {
+    if (isOverInteractive) {
       return {
         ...baseStyle,
+        opacity: 0.5,
         mixBlendMode: 'normal' as const,
         background: isClicking 
-          ? 'rgba(255, 255, 255, 0.9)' 
+          ? 'rgba(255, 255, 255, 0.3)' 
           : isDarkTheme 
-            ? 'var(--primary)' 
-            : 'var(--primary)'
+            ? 'rgba(14, 165, 233, 0.3)' 
+            : 'rgba(14, 165, 233, 0.3)'
       };
     }
     
-    // Default state uses mix-blend-difference for cool effect
     return {
       ...baseStyle,
+      opacity: 1,
       mixBlendMode: 'difference' as const,
       background: 'white'
     };
