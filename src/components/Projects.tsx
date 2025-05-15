@@ -40,7 +40,7 @@ const Projects = () => {
       tags: ['HTML5', 'CSS3', 'JavaScript'],
       category: 'other',
       github: 'https://github.com/ArizalMuluk/smpl-portofolio-web',
-      demo: 'https://example.com'
+      demo: 'https://simple-portofolio-web.vercel.app/'
     },
     {
       id: 2,
