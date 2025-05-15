@@ -1,11 +1,15 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const AbstractAnimation = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const [isAlive, setIsAlive] = useState(true); // State to keep the component alive
 
   useEffect(() => {
+    if (!isAlive) return; // Don't run effect if component is not alive
+
     const canvas = canvasRef.current;
     if (!canvas) return;
+    
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
@@ -13,7 +17,6 @@ const AbstractAnimation = () => {
     let animationFrameId: number;
     let time = 0;
     // Use consistent animation speed regardless of theme
-    const animationSpeed = 0.01;
 
     const resize = () => {
       canvas.width = window.innerWidth;
@@ -24,10 +27,11 @@ const AbstractAnimation = () => {
     resize();
 
     const draw = () => {
+      const now = performance.now();
       // Use a consistent fade effect that works in both themes
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.1)'; // Increased opacity for smoother effect
       ctx.fillRect(0, 0, canvas.width, canvas.height);
-
+      
       const centerX = canvas.width / 2;
       const centerY = canvas.height / 2;
       const radius = Math.min(canvas.width, canvas.height) * 0.3;
@@ -54,15 +58,17 @@ const AbstractAnimation = () => {
       }
 
       // Apply consistent animation speed
-      time += animationSpeed;
+      time = now * 0.0002; // Consistent animation speed based on time
       animationFrameId = requestAnimationFrame(draw);
     };
-
+    
     draw();
 
     return () => {
       window.removeEventListener('resize', resize);
       cancelAnimationFrame(animationFrameId);
+      // Optionally, you could set isAlive to false here to completely stop the animation when the component unmounts
+      // However, for the purpose of keeping it alive, we won't do that.
     };
   }, []);
 

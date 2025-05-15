@@ -50,7 +50,7 @@ const Projects = () => {
       tags: ['Flask', 'HTML5', 'CSS3', 'JavaScript'],
       category: ['backend', 'other'],
       github: 'https://github.com/ArizalMuluk/adv-portofolio-web',
-      demo: 'https://example.com'
+      demo: ''
     },
     {
       id: 3,
@@ -60,7 +60,7 @@ const Projects = () => {
       tags: ['Flask', 'Scikit-learn', 'Pandas', 'Numpy', 'HTML5', 'CSS3', 'Javascript'],
       category: ['AI & ML', 'backend'],
       github: 'https://github.com/ArizalMuluk/DT-model-testing',
-      demo: 'https://example.com'
+      demo: ''
     },
     {
       id: 4,
@@ -70,7 +70,7 @@ const Projects = () => {
       tags: ['Flask', 'HTML5', 'Groq API', 'CSS3'],
       category: ['backend', 'AI & ML'],
       github: 'https://github.com/ArizalMuluk/learning-chatbot',
-      demo: 'https://example.com'
+      demo: ''
     },
   ];
 
@@ -135,15 +135,26 @@ const Projects = () => {
     }
   };
 
-  const handleDemoClick = (e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>, projectTitle: string) => {
+  const handleDemoClick = (
+    e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>, 
+    projectTitle: string,
+    projectDemoUrl: string
+  ) => {
     e.preventDefault();
-    setCurrentProject(projectTitle);
-    setShowDemoPopup(true);
-    
-    // Auto-close popup after 3 seconds
-    setTimeout(() => {
-      setShowDemoPopup(false);
-    }, 3000);
+    // Cek apakah demo URL valid atau placeholder/kosong
+    const isDemoUnavailable = !projectDemoUrl || projectDemoUrl.trim() === '' || projectDemoUrl === 'https://example.com';
+
+    if (isDemoUnavailable) {
+      setCurrentProject(projectTitle);
+      setShowDemoPopup(true);
+      
+      // Auto-close popup after 3 seconds
+      setTimeout(() => {
+        setShowDemoPopup(false);
+      }, 3000);
+    } else {
+      window.open(projectDemoUrl, '_blank', 'noopener,noreferrer');
+    }
   };
 
   const toggleShowAllProjects = () => {
@@ -218,7 +229,7 @@ const Projects = () => {
                     <Github size={20} />
                   </motion.a>
                   <motion.button 
-                    onClick={(e) => handleDemoClick(e, project.title)}
+                    onClick={(e) => handleDemoClick(e, project.title, project.demo)}
                     className="p-2 rounded-full bg-gray-100/80 dark:bg-dark-700 text-primary-500 dark:text-primary-400 hover:bg-primary-500 hover:text-white transition-all"
                     whileHover={{ scale: 1.2, rotate: -5 }}
                     whileTap={{ scale: 0.9 }}
@@ -262,7 +273,7 @@ const Projects = () => {
                     Source
                   </a>
                   <button 
-                    onClick={(e) => handleDemoClick(e, project.title)}
+                    onClick={(e) => handleDemoClick(e, project.title, project.demo)}
                     className="text-sm flex items-center gap-1 text-gray-600 dark:text-gray-300 hover:text-primary-500 dark:hover:text-primary-400 transition-colors"
                   >
                     <ExternalLink size={16} />
