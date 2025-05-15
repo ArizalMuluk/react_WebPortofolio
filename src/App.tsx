@@ -5,10 +5,6 @@ import About from './components/About';
 import Projects from './components/Projects';
 import Skills from './components/Skills';
 import Certificates from './components/Certificates';
-import Timeline from './components/Timeline';
-import Blog from './components/Blog';
-import Testimonials from './components/Testimonials';
-import Achievements from './components/Achievements';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import LoadingScreen from './components/LoadingScreen';
@@ -60,11 +56,7 @@ function App() {
         <About />
         <Projects />
         <Skills />
-        <Timeline />
-        <Achievements />
         <Certificates />
-        <Blog />
-        <Testimonials />
         <Contact />
       </main>
       
