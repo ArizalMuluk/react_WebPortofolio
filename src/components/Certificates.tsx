@@ -121,7 +121,8 @@ const Certificates = () => {
       }
     },
     tap: {
-      scale: 0.95
+      scale: 0.9, // Membuat perubahan skala saat ditekan lebih terlihat
+      backgroundColor: 'rgba(99, 102, 241, 0.2)' // Menambahkan efek background samar (warna primary-500 dengan opacity 20%)
     }
   };
 
@@ -177,7 +178,7 @@ const Certificates = () => {
                   variants={glowVariants}
                   initial="initial"
                   animate={hoveredId === item.id ? "hover" : "initial"}
-                  className="absolute inset-0 bg-gradient-to-r from-primary-500/20 to-secondary-500/20 rounded-xl"
+                  className="absolute inset-0 z-[-1] bg-gradient-to-r from-primary-500/20 to-secondary-500/20 rounded-xl"
                 />
 
                 {/* Visual Container */}
@@ -242,7 +243,7 @@ const Certificates = () => {
                       title="View Details"
                       className="flex items-center gap-1.5 text-sm text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium"
                       whileHover={{ scale: 1.05, x: 5 }}
-                      whileTap={{ scale: 0.95 }}
+                      whileTap={{ scale: 0.9, backgroundColor: 'rgba(99, 102, 241, 0.2)' }} // Menambahkan efek tap yang sama
                     >
                       <ExternalLink size={16} />
                       <span>Details</span>
@@ -253,8 +254,8 @@ const Certificates = () => {
                         download={`${item.title.replace(/\s+/g, '_')}_Certificate.png`}
                         title="Download Certificate Image"
                         className="flex items-center gap-1.5 text-sm text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium"
-                        whileHover={{ scale: 1.05, x: 5 }}
-                        whileTap={{ scale: 0.95 }}
+                        whileHover={{ scale: 1.05, x: 5 }} // Keep hover effect
+                        whileTap={{ scale: 0.9, backgroundColor: 'rgba(99, 102, 241, 0.2)' }} // Apply consistent tap effect
                       >
                         <Download size={16} />
                         <span>Download</span>
