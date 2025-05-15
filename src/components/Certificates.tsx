@@ -11,10 +11,10 @@ interface Certificate {
   title: string;
   issuer: string;
   date: string;
-  image?: string; // Gambar sekarang opsional
+  image?: string;
   link: string;
   type: 'certificate' | 'publication';
-  embedHtml?: string; // Untuk kode sematan HTML
+  embedHtml?: string;
 }
 
 const items: Certificate[] = [
@@ -40,7 +40,8 @@ const items: Certificate[] = [
 
 const Certificates = () => {
   const [showAllCertificates, setShowAllCertificates] = useState(false);
-  const mainCertificatesCount = 2; // Jumlah sertifikat yang ditampilkan awalnya
+  const mainCertificatesCount = 2;
+  const [hoveredId, setHoveredId] = useState<number | null>(null);
 
   const { ref, inView } = useInView({
     threshold: 0.1,
@@ -49,7 +50,6 @@ const Certificates = () => {
 
   useEffect(() => {
     const scriptId = 'credly-embed-script';
-    // Periksa apakah ada item yang membutuhkan skrip Credly
     const needsCredlyScript = items.some(item => item.embedHtml && item.embedHtml.includes('credly.com'));
 
     if (needsCredlyScript && !document.getElementById(scriptId)) {
@@ -60,8 +60,7 @@ const Certificates = () => {
       script.src = '//cdn.credly.com/assets/utilities/embed.js';
       document.body.appendChild(script);
     }
-    // Skrip ini bersifat global dan tidak perlu dibersihkan saat komponen unmount
-  }, []); // Jalankan sekali saat komponen dimuat
+  }, []);
 
   const displayedCertificates = showAllCertificates ? items : items.slice(0, mainCertificatesCount);
   const hasMoreCertificates = items.length > mainCertificatesCount;
@@ -85,13 +84,58 @@ const Certificates = () => {
         duration: 0.5
       }
     },
-    exit: { // Animasi saat item keluar
+    exit: {
       opacity: 0,
       y: -20,
       transition: {
         duration: 0.3
       }
     },
+    hover: {
+      scale: 1.02,
+      transition: {
+        duration: 0.3,
+        ease: "easeInOut"
+      }
+    }
+  };
+
+  const imageVariants = {
+    hover: {
+      scale: 1.1,
+      filter: "brightness(1.1)",
+      transition: {
+        duration: 0.3,
+        ease: "easeInOut"
+      }
+    }
+  };
+
+  const buttonVariants = {
+    hover: {
+      scale: 1.05,
+      transition: {
+        duration: 0.2,
+        ease: "easeInOut",
+        yoyo: Infinity
+      }
+    },
+    tap: {
+      scale: 0.95
+    }
+  };
+
+  const glowVariants = {
+    initial: { opacity: 0 },
+    hover: {
+      opacity: [0, 1, 0],
+      scale: [1, 1.2, 1],
+      transition: {
+        duration: 1.5,
+        repeat: Infinity,
+        ease: "easeInOut"
+      }
+    }
   };
 
   return (
@@ -117,15 +161,26 @@ const Certificates = () => {
           <AnimatePresence>
             {displayedCertificates.map((item) => (
               <motion.div
-                layout // Untuk animasi perubahan tata letak yang mulus
+                layout
                 key={item.id}
                 variants={itemVariants}
-                initial="hidden" // Memastikan item baru masuk dengan animasi 'hidden'
-                animate="visible" // Menganimasikan ke state 'visible'
-                exit="exit" // Menggunakan state 'exit' saat item dihapus
-                className="group rounded-xl bg-white dark:bg-dark-800 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden h-full"
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                whileHover="hover"
+                onHoverStart={() => setHoveredId(item.id)}
+                onHoverEnd={() => setHoveredId(null)}
+                className="group relative rounded-xl bg-white dark:bg-dark-800 shadow-lg hover:shadow-xl transition-all duration-300 flex flex-col overflow-hidden h-full"
               >
-                {/* Kontainer Visual: Embed atau Gambar */}
+                {/* Glow Effect */}
+                <motion.div
+                  variants={glowVariants}
+                  initial="initial"
+                  animate={hoveredId === item.id ? "hover" : "initial"}
+                  className="absolute inset-0 bg-gradient-to-r from-primary-500/20 to-secondary-500/20 rounded-xl"
+                />
+
+                {/* Visual Container */}
                 <div className="relative bg-gray-100 dark:bg-dark-900 flex justify-center items-center min-h-[220px] md:min-h-[270px] p-4 rounded-t-xl overflow-hidden">
                   {item.embedHtml ? (
                     <div
@@ -133,23 +188,31 @@ const Certificates = () => {
                       dangerouslySetInnerHTML={{ __html: item.embedHtml }}
                     />
                   ) : item.image ? (
-                    <img
+                    <motion.img
                       src={item.image}
                       alt={item.title}
-                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                      variants={imageVariants}
+                      className="w-full h-full object-cover transition-transform duration-300"
                     />
                   ) : (
-                    <div className="w-full h-full flex flex-col justify-center items-center text-gray-400 dark:text-gray-500">
+                    <motion.div
+                      className="w-full h-full flex flex-col justify-center items-center text-gray-400 dark:text-gray-500"
+                      whileHover={{ scale: 1.1, rotate: 5 }}
+                    >
                       {item.type === 'certificate' ? <Award size={48} /> : <FileText size={48} />}
-                      <span className="mt-2 text-sm">Tidak ada pratinjau visual</span>
-                    </div>
+                      <span className="mt-2 text-sm">No preview available</span>
+                    </motion.div>
                   )}
                 </div>
 
-                {/* Konten Teks & Aksi */}
+                {/* Content */}
                 <div className="p-5 md:p-6 flex flex-col flex-grow">
                   <div className="flex items-center justify-between mb-3">
-                    <div className="flex items-center gap-2">
+                    <motion.div
+                      className="flex items-center gap-2"
+                      whileHover={{ x: 5 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
                       {item.type === 'certificate' ? (
                         <Award className="text-primary-500 dark:text-primary-400" size={18} />
                       ) : (
@@ -158,34 +221,44 @@ const Certificates = () => {
                       <span className="text-xs font-semibold uppercase tracking-wider text-primary-600 dark:text-primary-400">
                         {item.type}
                       </span>
-                    </div>
+                    </motion.div>
                     <span className="text-xs text-gray-500 dark:text-gray-400">{item.date}</span>
                   </div>
-                  <h3 className="text-lg md:text-xl font-semibold mb-1 text-gray-800 dark:text-white">{item.title}</h3>
+                  <motion.h3
+                    className="text-lg md:text-xl font-semibold mb-1 text-gray-800 dark:text-white"
+                    whileHover={{ x: 5 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    {item.title}
+                  </motion.h3>
                   <p className="text-sm text-gray-600 dark:text-gray-300 mb-4 flex-grow">{item.issuer}</p>
                   
-                  {/* Tombol Aksi */}
+                  {/* Action Buttons */}
                   <div className="mt-auto pt-4 border-t border-gray-200 dark:border-dark-700 flex items-center justify-start gap-4">
-                    <a
+                    <motion.a
                       href={item.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      title="Lihat Detail"
+                      title="View Details"
                       className="flex items-center gap-1.5 text-sm text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium"
+                      whileHover={{ scale: 1.05, x: 5 }}
+                      whileTap={{ scale: 0.95 }}
                     >
                       <ExternalLink size={16} />
-                      <span>Detail</span>
-                    </a>
+                      <span>Details</span>
+                    </motion.a>
                     {item.image && item.type === 'certificate' && !item.embedHtml && (
-                      <a
+                      <motion.a
                         href={item.image}
                         download={`${item.title.replace(/\s+/g, '_')}_Certificate.png`}
-                        title="Unduh Gambar Sertifikat"
+                        title="Download Certificate Image"
                         className="flex items-center gap-1.5 text-sm text-gray-700 dark:text-gray-300 hover:text-primary-600 dark:hover:text-primary-400 transition-colors font-medium"
+                        whileHover={{ scale: 1.05, x: 5 }}
+                        whileTap={{ scale: 0.95 }}
                       >
                         <Download size={16} />
-                        <span>Unduh</span>
-                      </a>
+                        <span>Download</span>
+                      </motion.a>
                     )}
                   </div>
                 </div>
@@ -194,14 +267,15 @@ const Certificates = () => {
           </AnimatePresence>
         </motion.div>
 
-        {/* Tombol "View All Achievements" / "Show Less" */}
+        {/* View All/Show Less Button */}
         {hasMoreCertificates && (
           <div className="text-center mt-12">
             <motion.button
               onClick={() => setShowAllCertificates(prev => !prev)}
               className="px-6 py-3 border border-primary-500 text-primary-600 dark:text-primary-400 rounded-md hover:bg-primary-500/10 dark:hover:bg-primary-400/10 transition-colors font-medium"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              variants={buttonVariants}
+              whileHover="hover"
+              whileTap="tap"
             >
               {showAllCertificates ? 'Show Less Achievements' : 'View All Achievements'}
             </motion.button>
