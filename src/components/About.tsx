@@ -6,6 +6,7 @@ import myProfileImage from "../assets/images/profile.png";
 
 const About = () => {
   const [showPopup, setShowPopup] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   
   const { ref, inView } = useInView({
     threshold: 0.2,
@@ -31,6 +32,30 @@ const About = () => {
         duration: 0.5,
       },
     }),
+  };
+
+  const imageVariants = {
+    initial: { scale: 1, rotate: 0 },
+    hover: { 
+      scale: 1.05,
+      rotate: [0, -5, 5, -5, 0],
+      transition: {
+        rotate: {
+          repeat: Infinity,
+          duration: 2,
+          ease: "easeInOut"
+        }
+      }
+    }
+  };
+
+  const decorativeVariants = {
+    initial: { opacity: 0.5, rotate: 0 },
+    hover: { 
+      opacity: 1,
+      rotate: 360,
+      transition: { duration: 20, repeat: Infinity, ease: "linear" }
+    }
   };
 
   const popupVariants = {
@@ -61,7 +86,6 @@ const About = () => {
   const handleCVDownload = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     setShowPopup(true);
-    // Auto-close popup after 3 seconds
     setTimeout(() => {
       setShowPopup(false);
     }, 3000);
@@ -82,37 +106,51 @@ const About = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          {/* About image */}
           <motion.div
             className="relative"
             initial="hidden"
             animate={inView ? "visible" : "hidden"}
             variants={fadeInVariants}
+            onHoverStart={() => setIsHovered(true)}
+            onHoverEnd={() => setIsHovered(false)}
           >
             <div className="relative w-full max-w-md mx-auto">
-              {/* Decorative elements */}
-              <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-tr from-primary-500/10 to-secondary-500/10 dark:from-primary-500/20 dark:to-secondary-500/20 rounded-2xl transform -rotate-6"></div>
-              <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-tr from-secondary-500/10 to-accent-500/10 dark:from-secondary-500/20 dark:to-accent-500/20 rounded-2xl transform rotate-3"></div>
+              <motion.div
+                className="absolute top-0 left-0 w-full h-full bg-gradient-to-tr from-primary-500/10 to-secondary-500/10 dark:from-primary-500/20 dark:to-secondary-500/20 rounded-2xl"
+                variants={decorativeVariants}
+                initial="initial"
+                animate={isHovered ? "hover" : "initial"}
+                style={{ transformOrigin: "center" }}
+              />
+              <motion.div
+                className="absolute top-0 left-0 w-full h-full bg-gradient-to-tr from-secondary-500/10 to-accent-500/10 dark:from-secondary-500/20 dark:to-accent-500/20 rounded-2xl"
+                variants={decorativeVariants}
+                initial="initial"
+                animate={isHovered ? "hover" : "initial"}
+                style={{ transformOrigin: "center" }}
+              />
 
-              {/* Main image */}
-              <div className="relative rounded-2xl overflow-hidden border-4 border-gray-200 dark:border-dark-700">
+              <motion.div
+                className="relative rounded-2xl overflow-hidden border-4 border-gray-200 dark:border-dark-700"
+                variants={imageVariants}
+                initial="initial"
+                animate={isHovered ? "hover" : "initial"}
+              >
                 <img
                   src={myProfileImage}
                   alt="Arizal Firdaus - Profile"
                   className="w-full h-auto object-cover"
                 />
-              </div>
+              </motion.div>
             </div>
           </motion.div>
 
-          {/* About content */}
           <motion.div
             initial="hidden"
             animate={inView ? "visible" : "hidden"}
             variants={fadeInVariants}
             className="flex flex-col space-y-6"
           >
-            {/* Stats cards */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
               {stats.map((stat, index) => (
                 <motion.div
@@ -130,7 +168,6 @@ const About = () => {
               ))}
             </div>
 
-            {/* About text */}
             <div>
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
                 I'm a dedicated Python professional enthusiastic about ML/AI. I specialize in applying Python development, data insights, and Flask to engineer efficient, intelligent solutions designed for complex challenges and smooth user interaction online.
@@ -139,10 +176,9 @@ const About = () => {
                 My programming journey began 3 years ago, focusing primarily on Python. My enthusiasm quickly grew towards Machine Learning/AI and Flask backend development, areas I've been actively exploring and deepening my skills in for approximately the last year.
               </p>
 
-              {/* CTA Button */}
               <motion.button
                 onClick={handleCVDownload}
-                className="btn-primary px-6 py-3 inline-flex items-center gap-2" // Use btn-primary and add specifics
+                className="btn-primary px-6 py-3 inline-flex items-center gap-2"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
@@ -154,7 +190,6 @@ const About = () => {
         </div>
       </div>
 
-      {/* Notification Popup */}
       {showPopup && (
         <motion.div 
           className="fixed bottom-6 right-6 z-50"
