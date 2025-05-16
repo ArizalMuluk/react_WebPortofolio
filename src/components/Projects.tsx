@@ -50,7 +50,7 @@ const Projects = () => {
       tags: ['Flask', 'HTML5', 'CSS3', 'JavaScript'],
       category: ['backend', 'other'],
       github: 'https://github.com/ArizalMuluk/adv-portofolio-web',
-      demo: ''
+      demo: 'https://adv-portofolio-web.vercel.app/'
     },
     {
       id: 3,
