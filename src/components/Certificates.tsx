@@ -4,7 +4,8 @@ import { useInView } from 'react-intersection-observer';
 import { ExternalLink, Award, FileText, Download } from 'lucide-react';
 
 import certificateImage1 from '../assets/images/certificate/certificate1.png';
-import certificateImage2 from '../assets/images/certificate/certificate2.png';
+import certificateImage2 from '../assets/images/certificate/certificate3.png';
+import certificateImage3 from '../assets/images/certificate/certificate2.png';
 
 interface Certificate {
   id: number;
@@ -29,6 +30,15 @@ const items: Certificate[] = [
   },
   {
     id: 2,
+    title: "Machine Learning with Python",
+    issuer: "freeCodeCamp",
+    date: "2025",
+    image: certificateImage3, 
+    link: "https://www.freecodecamp.org/certification/Muluk/machine-learning-with-python-v7",
+    type: "certificate",
+  },
+  {
+    id: 3,
     title: "Prompt Design in Vertex AI",
     issuer: "Google Cloud",
     date: "2025",
@@ -36,6 +46,8 @@ const items: Certificate[] = [
     link: "https://www.credly.com/badges/8232faf3-f329-47e4-a46b-d98705d9c731/",
     type: "certificate",
   },
+
+  
 ];
 
 const Certificates = () => {
