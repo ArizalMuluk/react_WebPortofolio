@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Github, ExternalLink, Code, X, AlertTriangle } from 'lucide-react';
 
-import projectImage1 from '../assets/images/project/other1.png'; 
+import projectImage1 from '../assets/images/project/staticwebfarhans.png'; 
 import projectImage2 from '../assets/images/project/other2.png'; 
 import projectImage3 from '../assets/images/project/aiml.png';
 import projectImage4 from '../assets/images/project/aiml2.png';
@@ -34,17 +34,17 @@ const Projects = () => {
   const projects: Project[] = [
     {
       id: 1,
-      title: 'Simple Portofolio Website',
-      description: 'A simple portfolio website showcasing projects and skills.',
+      title: 'Static Portofolio Website',
+      description: 'A simple Static portfolio website showcasing projects and skills.',
       image: projectImage1,
       tags: ['HTML5', 'CSS3', 'JavaScript'],
       category: 'other',
-      github: 'https://github.com/ArizalMuluk/smpl-portofolio-web',
-      demo: 'https://simple-portofolio-web.vercel.app/'
+      github: 'https://github.com/ArizalMuluk/varhan-web',
+      demo: 'https://arizalmuluk.github.io/varhan-web/'
     },
     {
       id: 2,
-      title: 'Advance Portfolio Website',
+      title: 'Dynamic Advanced Portfolio Website',
       description: 'An advanced portfolio website with animations and interactive elements.',
       image: projectImage2,
       tags: ['Flask', 'HTML5', 'CSS3', 'JavaScript'],
