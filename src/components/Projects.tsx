@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Github, ExternalLink, Code, X, AlertTriangle } from 'lucide-react';
 
-import projectImage1 from '../assets/images/project/staticwebfarhans.png'; 
+import projectImage1 from '../assets/images/project/farhanstaticweb.png'; 
 import projectImage2 from '../assets/images/project/other2.png'; 
 import projectImage3 from '../assets/images/project/aiml.png';
 import projectImage4 from '../assets/images/project/aiml2.png';
@@ -40,7 +40,7 @@ const Projects = () => {
       tags: ['HTML5', 'CSS3', 'JavaScript'],
       category: 'other',
       github: 'https://github.com/ArizalMuluk/varhan-web',
-      demo: 'https://arizalmuluk.github.io/varhan-web/'
+      demo: 'https://varhan-web.vercel.app/'
     },
     {
       id: 2,
