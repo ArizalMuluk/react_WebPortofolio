@@ -15,7 +15,7 @@ import CustomCursor from './components/CustomCursor';
 function App() {
   useEffect(() => {
     document.title = "Arzlfrds | AI & ML Engineer";
-    document.documentElement.classList.add('dark');
+    // Tema akan diatur oleh Navbar berdasarkan localStorage atau default ke light
     
     const handleAnchorClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;

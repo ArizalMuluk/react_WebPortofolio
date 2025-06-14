@@ -4,7 +4,6 @@ import { useInView } from 'react-intersection-observer';
 
 interface Skill {
   name: string;
-  level: number;
   category: 'ai-ml' | 'backend' | 'other';
   icon: string;
 }
@@ -26,27 +25,33 @@ const Skills: React.FC = () => {
 
   const skills: Skill[] = [
     // AI & ML
-    { name: 'Python', level: 95, category: 'ai-ml', icon: '🐍' },
-    { name: 'TensorFlow', level: 90, category: 'ai-ml', icon: '🧠' },
-    { name: 'PyTorch', level: 88, category: 'ai-ml', icon: '🔥' },
-    { name: 'NumPy', level: 92, category: 'ai-ml', icon: '📊' },
-    { name: 'Pandas', level: 90, category: 'ai-ml', icon: '🐼' },
-    { name: 'Matplotlib', level: 85, category: 'ai-ml', icon: '📈' },
+    // Ganti dengan path ke file SVG Anda, contoh: '/logos/python.svg'
+    // Pastikan file SVG ada di folder public Anda (misalnya public/logos/python.svg)
+    { name: 'Python', category: 'ai-ml', icon: '/logos/python.svg' },
+    { name: 'TensorFlow', category: 'ai-ml', icon: '/logos/tensorflow.svg' },
+    { name: 'PyTorch', category: 'ai-ml', icon: '/logos/pytorch.svg' },
+    { name: 'NumPy', category: 'ai-ml', icon: '/logos/numpy.svg' },
+    { name: 'Scikit-learn', category: 'ai-ml', icon: '/logos/scikit-learn.svg' },
+    { name: 'Pandas', category: 'ai-ml', icon: '/logos/pandas.svg' },
+    { name: 'Matplotlib', category: 'ai-ml', icon: '/logos/matplotlib.svg' },
     
     // Backend
-    { name: 'Flask', level: 88, category: 'backend', icon: '🌶️' },
-    { name: 'Django', level: 85, category: 'backend', icon: '🎯' },
-    { name: 'RESTful APIs', level: 85, category: 'backend', icon: '🔌' },
-    { name: 'SQL', level: 80, category: 'backend', icon: '💾' },
+    { name: 'Flask', category: 'backend', icon: '/logos/flask.svg' },
+    { name: 'Django', category: 'backend', icon: '/logos/django.svg' },
+    { name: 'Fast API', category: 'backend', icon: '/logos/fastapi.svg' }, // Anda mungkin perlu membuat ikon generik untuk ini
+    { name: 'MySQL', category: 'backend', icon: '/logos/mysql.svg' }, // Atau ikon database spesifik
     
     // Other Skills
-    { name: 'Linux', level: 85, category: 'other', icon: '🐧' },
-    { name: 'Bash', level: 82, category: 'other', icon: '💻' },
-    { name: 'Git', level: 85, category: 'other', icon: '🔄' },
-    { name: 'HTML/CSS', level: 75, category: 'other', icon: '🎨' },
-    { name: 'JavaScript', level: 70, category: 'other', icon: '📜' },
-    { name: 'Mathematical Logic', level: 90, category: 'other', icon: '🔢' },
+    { name: 'Linux', category: 'other', icon: '/logos/linux.svg' },
+    { name: 'Bash', category: 'other', icon: '/logos/bash.svg' },
+    { name: 'Git', category: 'other', icon: '/logos/git.svg' },
+    { name: 'Ubuntu', category: 'other', icon: '/logos/ubuntu.svg' }, // Bisa juga dipisah HTML & CSS
+    { name: 'Google Cloud Platform', category: 'other', icon: '/logos/googlecloud.svg' },
+    { name: 'C++', category: 'other', icon: '/logos/cpp.svg' }, // Ikon generik
   ];
+  // Catatan: Anda perlu membuat atau mendapatkan file SVG untuk setiap logo
+  // dan menempatkannya di folder `public/logos/` (atau path yang Anda tentukan).
+  // Nama file di atas adalah contoh.
 
   const skillsByCategory = {
     'ai-ml': skills.filter(skill => skill.category === 'ai-ml'),
@@ -77,14 +82,6 @@ const Skills: React.FC = () => {
       y: 0,
       transition: { duration: 0.5 }
     }
-  };
-
-  const progressVariants = {
-    hidden: { width: 0 },
-    visible: (level: number) => ({
-      width: `${level}%`,
-      transition: { duration: 1, ease: "easeOut" }
-    })
   };
 
   return (
@@ -121,22 +118,17 @@ const Skills: React.FC = () => {
                 {categorySkills.map(skill => (
                   <motion.div 
                     key={skill.name}
-                    className="mb-4"
+                    className="mb-3 p-3 bg-gray-100 dark:bg-dark-800 rounded-lg shadow-sm hover:shadow-md transition-shadow duration-300"
                     variants={skillVariants}
                   >
-                    <div className="flex justify-between items-center mb-2">
-                      <div className="flex items-center">
-                        <span className="mr-2 text-xl">{skill.icon}</span>
-                        <span className="font-medium text-gray-800 dark:text-white">{skill.name}</span>
-                      </div>
-                      <span className="text-gray-600 dark:text-gray-400 text-sm">{skill.level}%</span>
-                    </div>
-                    <div className="h-3 bg-gray-200 dark:bg-dark-700 rounded-full overflow-hidden">
-                      <motion.div
-                        className="h-full bg-gradient-to-r from-primary-500 to-secondary-600 rounded-full"
-                        custom={skill.level}
-                        variants={progressVariants}
+                    <div className="flex items-center">
+                      <img 
+                        src={skill.icon} 
+                        alt={`${skill.name} logo`} 
+                        className="w-6 h-6 mr-3" // Sesuaikan ukuran jika perlu
+                        onError={(e) => (e.currentTarget.style.display = 'none')} // Sembunyikan jika gambar gagal dimuat
                       />
+                      <span className="font-medium text-gray-800 dark:text-white">{skill.name}</span>
                     </div>
                   </motion.div>
                 ))}

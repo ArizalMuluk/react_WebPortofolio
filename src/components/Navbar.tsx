@@ -21,7 +21,7 @@ const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
-  const [currentTheme, setCurrentTheme] = useState('dark'); // Default to dark
+  const [currentTheme, setCurrentTheme] = useState('light'); // Default to light
 
   useEffect(() => {
     // Theme initialization
@@ -34,14 +34,10 @@ const Navbar: React.FC = () => {
         document.documentElement.classList.remove('dark');
       }
     } else {
-      // If no saved theme, default to dark (current behavior)
-      // You could change this to default to 'light' if preferred:
-      // document.documentElement.classList.remove('dark');
-      // setCurrentTheme('light');
-      // localStorage.setItem('theme', 'light');
-      document.documentElement.classList.add('dark');
-      setCurrentTheme('dark');
-      localStorage.setItem('theme', 'dark');
+      // If no saved theme, default to light
+      document.documentElement.classList.remove('dark');
+      setCurrentTheme('light');
+      localStorage.setItem('theme', 'light');
     }
 
     const handleScroll = () => {

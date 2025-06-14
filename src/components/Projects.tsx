@@ -38,38 +38,38 @@ const Projects = () => {
       title: 'Static Portofolio Website',
       description: 'A simple Static portfolio website showcasing projects and skills.',
       image: projectImage1,
-      tags: ['HTML5', 'CSS3', 'JavaScript'],
-      category: 'other',
+      tags: ['HTML5', 'CSS3', 'JavaScript', 'Vercel'],
+      category: 'Web Application',
       github: 'https://github.com/ArizalMuluk/varhan-web',
       demo: 'https://varhan-web.vercel.app/'
     },
     {
       id: 2,
       title: 'Personality Prediction',
-      description: 'A personality prediction system using machine learning to analyze user input.',
+      description: 'A personality prediction system using machine learning (Decision Tree) to analyze user input.',
       image: projectImage5,
       tags: ['Flask', 'Scikit-learn', 'Numpy', 'HTML5', 'Pandas', 'CSS3'],
-      category: ['backend', 'AI & ML'],
+      category: ['Predictive Modeling', 'Web Application'],
       github: 'https://github.com/ArizalMuluk/learning-chatbot',
       demo: ''
     },
     {
       id: 3,
       title: 'Iris Prediction System',
-      description: 'A machine learning model to predict iris species based on flower measurements.',
+      description: 'A machine learning model (Decision Tree) to predict iris species based on flower measurements.',
       image: projectImage3,
       tags: ['Flask', 'Scikit-learn', 'Pandas', 'Numpy', 'HTML5', 'CSS3', 'Javascript'],
-      category: ['AI & ML', 'backend'],
+      category: ['Predictive Modeling', 'Web Application'],
       github: 'https://github.com/ArizalMuluk/DT-model-testing',
       demo: ''
     },
     {
       id: 4,
       title: 'ChatBot Learning Assistant',
-      description: 'A chatbot that assists users in learning new topics using AI.',
+      description: 'A chatbot that assists users in learning new topics using AI (Groq API).',
       image: projectImage4,
       tags: ['Flask', 'HTML5', 'Groq API', 'CSS3'],
-      category: ['backend', 'AI & ML'],
+      category: ['Natural Language Processing', 'Web Application'],
       github: 'https://github.com/ArizalMuluk/learning-chatbot',
       demo: ''
     },
@@ -78,8 +78,8 @@ const Projects = () => {
       title: 'Dynamic Advanced Portfolio Website',
       description: 'An advanced portfolio website with animations and interactive elements.',
       image: projectImage2,
-      tags: ['Flask', 'HTML5', 'CSS3', 'JavaScript'],
-      category: ['backend', 'other'],
+      tags: ['Flask', 'HTML5', 'CSS3', 'JavaScript', 'Vercel'],
+      category: 'Web Application',
       github: 'https://github.com/ArizalMuluk/adv-portofolio-web',
       demo: 'https://adv-portofolio-web.vercel.app/'
     }
@@ -187,7 +187,7 @@ const Projects = () => {
           
           {/* Filter Buttons */}
           <div className="flex flex-wrap justify-center gap-3">
-            {['all', 'AI & ML', 'backend', 'other'].map(category => (
+            {['all', 'Computer Vision', 'Natural Language Processing', 'Generative AI', 'Predictive Modeling', 'Web Application'].map(category => (
               <motion.button
                 key={category}
                 onClick={() => setFilter(category)}
