@@ -46,9 +46,9 @@ const Projects = () => {
     {
       id: 2,
       title: 'Personality Prediction',
-      description: 'A chatbot that assists users in learning new topics using AI.',
+      description: 'A personality prediction system using machine learning to analyze user input.',
       image: projectImage5,
-      tags: ['Flask', 'HTML5', 'Scikit-learn', 'Pandas', 'Numpy', 'CSS3'],
+      tags: ['Flask', 'Scikit-learn', 'Numpy', 'HTML5', 'Pandas', 'CSS3'],
       category: ['backend', 'AI & ML'],
       github: 'https://github.com/ArizalMuluk/learning-chatbot',
       demo: ''
@@ -70,7 +70,7 @@ const Projects = () => {
       image: projectImage4,
       tags: ['Flask', 'HTML5', 'Groq API', 'CSS3'],
       category: ['backend', 'AI & ML'],
-      github: 'https://github.com/ArizalMuluk/personality_behavior',
+      github: 'https://github.com/ArizalMuluk/learning-chatbot',
       demo: ''
     },
     {
