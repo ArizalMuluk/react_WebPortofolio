@@ -7,6 +7,7 @@ import projectImage1 from '../assets/images/project/farhanstaticweb.png';
 import projectImage2 from '../assets/images/project/other2.png'; 
 import projectImage3 from '../assets/images/project/aiml.png';
 import projectImage4 from '../assets/images/project/aiml2.png';
+import projectImage5 from '../assets/images/project/aiml_personality.png';
 
 interface Project {
   id: number;
@@ -44,13 +45,13 @@ const Projects = () => {
     },
     {
       id: 2,
-      title: 'Dynamic Advanced Portfolio Website',
-      description: 'An advanced portfolio website with animations and interactive elements.',
-      image: projectImage2,
-      tags: ['Flask', 'HTML5', 'CSS3', 'JavaScript'],
-      category: ['backend', 'other'],
-      github: 'https://github.com/ArizalMuluk/adv-portofolio-web',
-      demo: 'https://adv-portofolio-web.vercel.app/'
+      title: 'Personality Prediction',
+      description: 'A chatbot that assists users in learning new topics using AI.',
+      image: projectImage5,
+      tags: ['Flask', 'HTML5', 'Scikit-learn', 'Pandas', 'Numpy', 'CSS3'],
+      category: ['backend', 'AI & ML'],
+      github: 'https://github.com/ArizalMuluk/learning-chatbot',
+      demo: ''
     },
     {
       id: 3,
@@ -69,9 +70,19 @@ const Projects = () => {
       image: projectImage4,
       tags: ['Flask', 'HTML5', 'Groq API', 'CSS3'],
       category: ['backend', 'AI & ML'],
-      github: 'https://github.com/ArizalMuluk/learning-chatbot',
+      github: 'https://github.com/ArizalMuluk/personality_behavior',
       demo: ''
     },
+    {
+      id: 5,
+      title: 'Dynamic Advanced Portfolio Website',
+      description: 'An advanced portfolio website with animations and interactive elements.',
+      image: projectImage2,
+      tags: ['Flask', 'HTML5', 'CSS3', 'JavaScript'],
+      category: ['backend', 'other'],
+      github: 'https://github.com/ArizalMuluk/adv-portofolio-web',
+      demo: 'https://adv-portofolio-web.vercel.app/'
+    }
   ];
 
   // Tentukan berapa banyak proyek yang ditampilkan secara default.
