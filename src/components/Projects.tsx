@@ -37,7 +37,7 @@ const Projects = () => {
     {
       id: 1,
       title: 'Nasi Padang Image Classification',
-      description: 'A simple Static portfolio website showcasing projects and skills.',
+      description: 'This project classifies Nasi Padang dishes from images using PyTorch, training a Convolutional Neural Network (CNN) to identify various components.',
       image: projectImage1,
       tags: ['PyTorch', 'Flask', 'Kaggle', 'Scikit-learn', 'HTML5', 'CSS3', 'JavaScript'],
       category:'Image Classification',
