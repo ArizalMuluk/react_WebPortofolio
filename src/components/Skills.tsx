@@ -47,7 +47,7 @@ const Skills: React.FC = () => {
     { name: 'Git', category: 'other', icon: '/logos/git.svg' },
     { name: 'Ubuntu', category: 'other', icon: '/logos/ubuntu.svg' }, // Bisa juga dipisah HTML & CSS
     { name: 'Google Cloud Platform', category: 'other', icon: '/logos/googlecloud.svg' },
-    { name: 'C++', category: 'other', icon: '/logos/cpp.svg' }, // Ikon generik
+    { name: 'Docker', category: 'other', icon: '/logos/docker.svg' }, // Ikon generik
   ];
   // Catatan: Anda perlu membuat atau mendapatkan file SVG untuk setiap logo
   // dan menempatkannya di folder `public/logos/` (atau path yang Anda tentukan).
