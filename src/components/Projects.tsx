@@ -3,11 +3,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { Github, ExternalLink, Code, X, AlertTriangle } from 'lucide-react';
 
-import projectImage1 from '../assets/images/project/farhanstaticweb.png'; 
+import projectImage1 from '../assets/images/project/naspad_classifier.png';
 import projectImage2 from '../assets/images/project/other2.png'; 
 import projectImage3 from '../assets/images/project/aiml.png';
 import projectImage4 from '../assets/images/project/aiml2.png';
 import projectImage5 from '../assets/images/project/aiml_personality.png';
+import projectImage6 from '../assets/images/project/farhanstaticweb.png'; 
 
 interface Project {
   id: number;
@@ -35,13 +36,13 @@ const Projects = () => {
   const projects: Project[] = [
     {
       id: 1,
-      title: 'Static Portofolio Website',
+      title: 'Nasi Padang Image Classification',
       description: 'A simple Static portfolio website showcasing projects and skills.',
       image: projectImage1,
-      tags: ['HTML5', 'CSS3', 'JavaScript', 'Vercel'],
-      category: 'Web Application',
-      github: 'https://github.com/ArizalMuluk/varhan-web',
-      demo: 'https://varhan-web.vercel.app/'
+      tags: ['PyTorch', 'Flask', 'Kaggle', 'Scikit-learn', 'HTML5', 'CSS3', 'JavaScript'],
+      category:'Image Classification',
+      github: 'https://github.com/ArizalMuluk/naspad_classifier',
+      demo: ''
     },
     {
       id: 2,
@@ -49,7 +50,7 @@ const Projects = () => {
       description: 'A personality prediction system using machine learning (Decision Tree) to analyze user input.',
       image: projectImage5,
       tags: ['Flask', 'Scikit-learn', 'Numpy', 'HTML5', 'Pandas', 'CSS3'],
-      category: ['Predictive Modeling', 'Web Application'],
+      category: 'Predictive Modeling',
       github: 'https://github.com/ArizalMuluk/learning-chatbot',
       demo: ''
     },
@@ -59,7 +60,7 @@ const Projects = () => {
       description: 'A machine learning model (Decision Tree) to predict iris species based on flower measurements.',
       image: projectImage3,
       tags: ['Flask', 'Scikit-learn', 'Pandas', 'Numpy', 'HTML5', 'CSS3', 'Javascript'],
-      category: ['Predictive Modeling', 'Web Application'],
+      category: 'Predictive Modeling',
       github: 'https://github.com/ArizalMuluk/DT-model-testing',
       demo: ''
     },
@@ -69,7 +70,7 @@ const Projects = () => {
       description: 'A chatbot that assists users in learning new topics using AI (Groq API).',
       image: projectImage4,
       tags: ['Flask', 'HTML5', 'Groq API', 'CSS3'],
-      category: ['Natural Language Processing', 'Web Application'],
+      category: 'Natural Language Processing',
       github: 'https://github.com/ArizalMuluk/learning-chatbot',
       demo: ''
     },
@@ -82,7 +83,17 @@ const Projects = () => {
       category: 'Web Application',
       github: 'https://github.com/ArizalMuluk/adv-portofolio-web',
       demo: 'https://adv-portofolio-web.vercel.app/'
-    }
+    },
+    {
+      id: 6,
+      title: 'Static Portofolio Website',
+      description: 'A simple Static portfolio website showcasing projects and skills.',
+      image: projectImage6,
+      tags: ['HTML5', 'CSS3', 'JavaScript', 'Vercel'],
+      category: 'Web Application',
+      github: 'https://github.com/ArizalMuluk/varhan-web',
+      demo: 'https://varhan-web.vercel.app/'
+    },
   ];
 
   // Tentukan berapa banyak proyek yang ditampilkan secara default.
@@ -187,7 +198,7 @@ const Projects = () => {
           
           {/* Filter Buttons */}
           <div className="flex flex-wrap justify-center gap-3">
-            {['all', 'Computer Vision', 'Natural Language Processing', 'Generative AI', 'Predictive Modeling', 'Web Application'].map(category => (
+            {['all', 'Computer Vision', 'Natural Language Processing', 'Generative AI', 'Image Classification', 'Predictive Modeling', 'Web Application'].map(category => (
               <motion.button
                 key={category}
                 onClick={() => setFilter(category)}
